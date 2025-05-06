@@ -4,20 +4,20 @@ import { CreateUserInput } from './dto/create-user.input'
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { UserView } from "./dto/user.view"
 import { UpdateUserInput } from "./dto/update-user.input"
-// import { JwtAuthGuard } from "../auth/guards/jwt-auth/jwt-auth.guard"
+import { JwtAuthGuard } from "../auth/guards/jwt-auth/jwt-auth.guard"
 import { UserNotFoundException } from "../errors"
-// import { AdminGuard } from "./guards/is-admin.guard"
+import { AdminGuard } from "./guards/is-admin.guard"
 import { EUserRole } from "./entities/user.entity"
 
 @ApiTags('Users')
 @Controller('users')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @HttpCode(201)
   // @UseInterceptors(ProfileImageInterceptor)
   @ApiOperation({ summary: 'Register a new user' })
@@ -43,7 +43,7 @@ export class UsersController {
   }
 
   @Get()
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @ApiOperation({ summary: 'Get all users' })
   @ApiOkResponse({
     type: [UserView],
@@ -78,7 +78,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @ApiOperation({ summary: 'Get a user by id' })
   @ApiOkResponse({
     type: UserView,
@@ -92,7 +92,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @ApiOperation({ summary: 'Update a user by id' })
   @ApiOkResponse({
     type: UserView,
@@ -106,7 +106,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @ApiOperation({ summary: 'Delete a user by id' })
   @ApiOkResponse({
     type: UserView,
