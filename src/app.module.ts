@@ -3,6 +3,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { MongoModule } from "./mongo/mongo.module"
 import { ConfigModule } from '@nestjs/config'
+import { FirebaseModule } from "./firebase/firebase.module"
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { ConfigModule } from '@nestjs/config'
       isGlobal: true
     }),
     MongoModule,
+    FirebaseModule
   ],
   controllers: [AppController],
   providers: [AppService],
